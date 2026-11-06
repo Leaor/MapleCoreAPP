@@ -171,6 +171,7 @@ private struct RouteMapScreen: View {
                     .buttonStyle(.plain)
                     .accessibilityLabel("Stop \(pin.number), \(pin.name)\(pin.isNext ? ", next" : ""), \(pin.status.label)")
                 }
+                .annotationTitles(.hidden)
             }
             ForEach(vehicles) { vehicle in
                 Annotation(vehicle.label, coordinate: vehicle.coordinate, anchor: .bottom) {
@@ -192,10 +193,10 @@ private struct RouteMapScreen: View {
                     .accessibilityElement(children: .ignore)
                     .accessibilityLabel("Crew vehicle, live location, \(vehicle.label)")
                 }
+                .annotationTitles(.hidden)
             }
         }
         .mapStyle(.standard(emphasis: .muted))
-        .annotationTitles(.hidden)
     }
 
     // MARK: Panel

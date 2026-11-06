@@ -384,6 +384,7 @@ private struct TodayRoutesMapSheet: View {
                             .buttonStyle(.plain)
                             .accessibilityLabel("\(pin.route.name), \(pin.route.stateBadge().text), at \(pin.place)")
                         }
+                        .annotationTitles(.hidden)
                     }
                 }
                 .mapStyle(.standard(emphasis: .muted))
