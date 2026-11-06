@@ -9,6 +9,7 @@ struct NotificationPrefsView: View {
     @Environment(AppStore.self) private var store
     @Environment(\.isRolePreview) private var isRolePreview
     @Environment(\.openURL) private var openURL
+    @Environment(\.scenePhase) private var scenePhase
 
     @State private var systemStatus: UNAuthorizationStatus?
 
@@ -99,10 +100,16 @@ struct NotificationPrefsView: View {
         .navigationTitle("Notifications")
         .navigationBarTitleDisplayMode(.inline)
         .motionAnimation(value: store.notificationPrefs)
-        .task {
-            let settings = await UNUserNotificationCenter.current().notificationSettings()
-            systemStatus = settings.authorizationStatus
+        .task { await refreshSystemStatus() }
+        .onChange(of: scenePhase) { _, phase in
+            // Coming back from iPhone Settings: pick up a changed permission.
+            if phase == .active { Task { await refreshSystemStatus() } }
         }
+    }
+
+    private func refreshSystemStatus() async {
+        let status = await UNUserNotificationCenter.current().notificationSettings().authorizationStatus
+        systemStatus = status
     }
 }
 

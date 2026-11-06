@@ -51,10 +51,6 @@ final class AppModel {
         monitor.start(queue: DispatchQueue(label: "maplecore.network"))
     }
 
-    deinit {
-        monitor.cancel()
-    }
-
     private func applyConnectivity() {
         store.isOnline = networkReachable && !simulateOffline
     }

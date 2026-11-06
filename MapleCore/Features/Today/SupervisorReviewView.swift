@@ -12,6 +12,9 @@ struct SupervisorReviewView: View {
     @Environment(\.dismiss) private var dismiss
 
     @State private var showRequestChanges = false
+    /// Set when changes were requested; the screen advances once the sheet has finished dismissing
+    /// so navigation never changes underneath a presented sheet.
+    @State private var advanceAfterSheet: VisitRecord.ID?
 
     var body: some View {
         if !store.capabilities.contains(.visitReview) {
@@ -71,7 +74,12 @@ struct SupervisorReviewView: View {
                 }
             }
         }
-        .sheet(isPresented: $showRequestChanges) {
+        .sheet(isPresented: $showRequestChanges, onDismiss: {
+            if let id = advanceAfterSheet {
+                advanceAfterSheet = nil
+                advance(from: id)
+            }
+        }) {
             RequestChangesSheet(propertyName: property.name) { note in
                 requestChanges(visit, note: note)
             }
@@ -107,7 +115,7 @@ struct SupervisorReviewView: View {
         store.requestChanges(visit.id, note: note)
         Haptics.success()
         toasts.show(store.isOnline ? "Changes requested · crew will be notified" : "Saved on this iPhone · sends automatically", symbol: "arrow.uturn.backward.circle.fill", tone: .amber)
-        advance(from: visit.id)
+        advanceAfterSheet = visit.id
     }
 
     /// Replaces this screen with the next visit in the queue, or pops when the queue is done.
