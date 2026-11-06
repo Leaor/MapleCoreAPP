@@ -25,6 +25,10 @@ final class CameraController {
         var label: String { self == .auto ? "Flash auto" : "Flash off" }
     }
 
+    /// One capture pipeline for the app. The visit cover's view struct is re-created often, so owning
+    /// the session there would allocate a new AVCaptureSession on every parent update.
+    @MainActor static let shared = CameraController()
+
     static var isSimulator: Bool {
         #if targetEnvironment(simulator)
         return true

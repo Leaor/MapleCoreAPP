@@ -39,14 +39,20 @@ final class AppModel {
     init(store: AppStore, auth: any AuthService = MockAuthService()) {
         self.store = store
         self.auth = auth
-        monitor.pathUpdateHandler = { [weak self] path in
+        // Called on the monitor's queue: hop to the main actor before touching state.
+        monitor.pathUpdateHandler = { @Sendable [weak self] path in
             let reachable = path.status == .satisfied
+            guard let model = self else { return }
             Task { @MainActor in
-                self?.networkReachable = reachable
-                self?.applyConnectivity()
+                model.networkReachable = reachable
+                model.applyConnectivity()
             }
         }
         monitor.start(queue: DispatchQueue(label: "maplecore.network"))
+    }
+
+    deinit {
+        monitor.cancel()
     }
 
     private func applyConnectivity() {

@@ -123,9 +123,11 @@ private struct HistoryStopRow: View {
     }
 }
 
+#if DEBUG
 #Preview("Shift history") {
     NavigationStack {
         ShiftHistoryView()
     }
     .previewEnvironment(role: .field)
 }
+#endif

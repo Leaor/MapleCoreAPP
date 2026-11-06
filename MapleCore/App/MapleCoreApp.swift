@@ -10,7 +10,13 @@ struct MapleCoreApp: App {
         let arguments = ProcessInfo.processInfo.arguments
         let isUITest = arguments.contains("-uitest")
         // UI tests run against a fresh in-memory store and an instant demo sign-in.
-        let store = AppStore(persistence: isUITest ? MemorySnapshotStore() : FileSnapshotStore.applicationSupport())
+        let persistence: any SnapshotStoring
+        if isUITest {
+            persistence = MemorySnapshotStore()
+        } else {
+            persistence = FileSnapshotStore.applicationSupport()
+        }
+        let store = AppStore(persistence: persistence)
         if isUITest { store.syncStepDelay = .milliseconds(50) }
         _model = State(initialValue: AppModel(store: store, auth: MockAuthService(latency: isUITest ? .zero : .milliseconds(600))))
     }

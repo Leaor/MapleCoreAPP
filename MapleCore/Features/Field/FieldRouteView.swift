@@ -346,9 +346,11 @@ private struct FieldRouteMap: View {
     }
 }
 
+#if DEBUG
 #Preview("My Route") {
     NavigationStack {
         FieldRouteView().appDestinations()
     }
     .previewEnvironment(role: .field)
 }
+#endif

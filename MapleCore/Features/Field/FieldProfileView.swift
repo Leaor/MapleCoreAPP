@@ -273,9 +273,11 @@ private struct LocationSharingSection: View {
     }
 }
 
+#if DEBUG
 #Preview("Profile") {
     NavigationStack {
         FieldProfileView().appDestinations()
     }
     .previewEnvironment(role: .field)
 }
+#endif

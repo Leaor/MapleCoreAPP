@@ -271,6 +271,7 @@ private struct LastFinishSection: View {
     }
 }
 
+#if DEBUG
 #Preview("Stop · next") {
     NavigationStack {
         FieldStopView(routeID: Fixtures.ID.routeNorth, stopID: "north-6").appDestinations()
@@ -284,3 +285,4 @@ private struct LastFinishSection: View {
     }
     .previewEnvironment(role: .field)
 }
+#endif

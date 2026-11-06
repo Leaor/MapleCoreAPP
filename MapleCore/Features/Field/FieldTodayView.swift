@@ -284,9 +284,11 @@ private struct RouteDoneCard: View {
     }
 }
 
+#if DEBUG
 #Preview("Today") {
     NavigationStack {
         FieldTodayView().appDestinations()
     }
     .previewEnvironment(role: .field)
 }
+#endif

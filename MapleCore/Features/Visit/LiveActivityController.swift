@@ -30,8 +30,16 @@ final class LiveActivityController {
 
         // Re-attach to an activity that survived an app relaunch.
         if activity == nil {
-            activity = Activity<VisitActivityAttributes>.activities.first { $0.attributes.visitID == session.id }
+            let running = Activity<VisitActivityAttributes>.activities
+            activity = running.first { $0.attributes.visitID == session.id }
             lastState = activity?.content.state
+            // Leftovers from a visit that ended while the app wasn't running.
+            let stale = running.filter { $0.attributes.visitID != session.id }
+            if !stale.isEmpty {
+                Task {
+                    for item in stale { await item.end(nil, dismissalPolicy: .immediate) }
+                }
+            }
         }
 
         // Dismissed from the Lock Screen (or ended by the system): start a fresh one.

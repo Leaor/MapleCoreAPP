@@ -24,7 +24,7 @@ struct VisitPhotoReviewScreen: View {
                 MissingRecordView(title: "Photo removed", message: "This photo is no longer part of the visit.")
                     .safeAreaInset(edge: .bottom) {
                         BottomActionBar {
-                            Button("Back to Camera") { go(.camera(.before)) }
+                            Button("Back to Camera") { go(.camera(session.state == .arrived ? .before : .after)) }
                                 .buttonStyle(.mc(.secondary))
                         }
                     }
@@ -36,7 +36,13 @@ struct VisitPhotoReviewScreen: View {
     private func content(_ photo: VisitPhoto) -> some View {
         let kindPhotos = session.photos(photo.kind)
         let position = (kindPhotos.firstIndex { $0.id == photo.id } ?? 0) + 1
-        let total = max(kindPhotos.count, photo.kind == .work ? kindPhotos.count : VisitSession.requiredBeforePhotos)
+        let required: Int
+        switch photo.kind {
+        case .before: required = VisitSession.requiredBeforePhotos
+        case .after: required = VisitSession.requiredAfterPhotos
+        case .work: required = 0
+        }
+        let total = max(kindPhotos.count, required)
         return VStack(spacing: 0) {
             topBar(photo, title: "\(photo.kind.label) · \(position) of \(total)")
             ScrollView {

@@ -41,7 +41,7 @@ struct VisitFlowView: View {
 
     @State private var screen: VisitScreen?
     @State private var submitted: VisitSubmittedResult?
-    @State private var camera = CameraController()
+    private var camera: CameraController { CameraController.shared }
     @State private var isIssuePresented = false
     @State private var isSkipPresented = false
     @State private var isDiscardConfirming = false

@@ -206,9 +206,11 @@ private struct FieldThreadRow: View {
     }
 }
 
+#if DEBUG
 #Preview("Messages") {
     NavigationStack {
         FieldMessagesView().appDestinations()
     }
     .previewEnvironment(role: .field)
 }
+#endif

@@ -152,17 +152,15 @@ struct VisitActionButtons: View {
                         Label("Pause", systemImage: "pause.fill")
                             .frame(maxWidth: .infinity, minHeight: 36)
                     }
-                    .tint(.white.opacity(0.25))
+                    .tint(Color.white.opacity(0.25))
                 }
             }
             if let visitURL {
                 Link(destination: visitURL) {
                     Label(state.workStartedAt == nil ? "Open Visit" : "After Photos", systemImage: "camera.fill")
-                        .font(.subheadline.weight(.semibold))
                         .frame(maxWidth: .infinity, minHeight: 36)
-                        .background(WidgetColor.red, in: Capsule())
-                        .foregroundStyle(.white)
                 }
+                .tint(WidgetColor.red)
             }
         }
         .buttonStyle(.borderedProminent)

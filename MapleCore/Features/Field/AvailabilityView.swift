@@ -111,9 +111,11 @@ struct AvailabilityView: View {
     }
 }
 
+#if DEBUG
 #Preview("Availability") {
     NavigationStack {
         AvailabilityView()
     }
     .previewEnvironment(role: .field)
 }
+#endif

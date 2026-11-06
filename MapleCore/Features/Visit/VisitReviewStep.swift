@@ -98,7 +98,7 @@ struct VisitReviewStep: View {
     private func timeValue(at date: Date) -> String {
         let work = Int((session.workingElapsed(at: date) / 60).rounded())
         let paused = Int((session.pausedDuration(at: date) / 60).rounded())
-        return "\(Fmt.duration(minutes: work)) work · \(paused) paused"
+        return "\(Fmt.duration(minutes: work)) work · \(Fmt.duration(minutes: paused)) paused"
     }
 
     private func summaryRow(symbol: String, title: String, value: String, showsChevron: Bool = false) -> some View {
