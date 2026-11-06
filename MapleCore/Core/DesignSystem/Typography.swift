@@ -40,6 +40,11 @@ struct TimerText: View {
     var baseSize: CGFloat = 72
     @ScaledMetric(relativeTo: .largeTitle) private var scale: CGFloat = 1
 
+    init(text: String, baseSize: CGFloat = 72) {
+        self.text = text
+        self.baseSize = baseSize
+    }
+
     var body: some View {
         Text(text)
             .font(.system(size: baseSize * min(scale, 1.6), weight: .semibold))

@@ -34,6 +34,12 @@ final class LiveActivityController {
             lastState = activity?.content.state
         }
 
+        // Dismissed from the Lock Screen (or ended by the system): start a fresh one.
+        if let current = activity, current.activityState == .ended || current.activityState == .dismissed {
+            activity = nil
+            lastState = nil
+        }
+
         // A different visit: end whatever is showing before starting the new one.
         if let current = activity, current.attributes.visitID != session.id {
             endAll()

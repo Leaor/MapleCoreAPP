@@ -14,6 +14,14 @@ struct PhotoTile: View {
 
     @State private var image: UIImage?
 
+    init(photo: VisitPhoto?, swatch: Int = 0, cornerRadius: CGFloat = Radius.control, showsKindLabel: Bool = false, maxPixel: CGFloat = 600) {
+        self.photo = photo
+        self.swatch = swatch
+        self.cornerRadius = cornerRadius
+        self.showsKindLabel = showsKindLabel
+        self.maxPixel = maxPixel
+    }
+
     var body: some View {
         ZStack(alignment: .bottomLeading) {
             Rectangle()
@@ -75,6 +83,11 @@ struct PhotoCompareSlider: View {
     var before: VisitPhoto?
     var after: VisitPhoto?
     @State private var split: CGFloat = 0.5
+
+    init(before: VisitPhoto?, after: VisitPhoto?) {
+        self.before = before
+        self.after = after
+    }
 
     var body: some View {
         GeometryReader { proxy in

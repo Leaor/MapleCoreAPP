@@ -15,7 +15,7 @@ struct PropertyResolvedAddress: Equatable {
 }
 
 /// Wraps `MKLocalSearchCompleter` for address suggestions while typing.
-@MainActor
+/// UI-facing methods are main-actor; the completer calls its delegate on the main thread.
 @Observable
 final class AddressSearchModel: NSObject, MKLocalSearchCompleterDelegate {
     struct Suggestion: Identifiable, Hashable {
@@ -41,6 +41,7 @@ final class AddressSearchModel: NSObject, MKLocalSearchCompleterDelegate {
         completer.region = MKCoordinateRegion(center: Self.serviceCenter, latitudinalMeters: 80_000, longitudinalMeters: 80_000)
     }
 
+    @MainActor
     func update(query: String) {
         let q = query.trimmingCharacters(in: .whitespacesAndNewlines)
         lastError = nil
@@ -55,6 +56,7 @@ final class AddressSearchModel: NSObject, MKLocalSearchCompleterDelegate {
         completer.queryFragment = q
     }
 
+    @MainActor
     func clear() {
         completer.cancel()
         completions = []
@@ -63,6 +65,7 @@ final class AddressSearchModel: NSObject, MKLocalSearchCompleterDelegate {
     }
 
     /// Resolves a suggestion to a coordinate with `MKLocalSearch`.
+    @MainActor
     func resolve(_ suggestion: Suggestion) async -> PropertyResolvedAddress? {
         guard completions.indices.contains(suggestion.id) else { return nil }
         let request = MKLocalSearch.Request(completion: completions[suggestion.id])
@@ -83,6 +86,7 @@ final class AddressSearchModel: NSObject, MKLocalSearchCompleterDelegate {
     }
 
     /// Places a typed address with a natural-language search. Falls back to an approximate pin.
+    @MainActor
     func locate(manual text: String) async -> PropertyResolvedAddress {
         let trimmed = text.trimmingCharacters(in: .whitespacesAndNewlines)
         let request = MKLocalSearch.Request()
@@ -97,9 +101,9 @@ final class AddressSearchModel: NSObject, MKLocalSearchCompleterDelegate {
                                        longitude: Self.serviceCenter.longitude, isLocated: false)
     }
 
-    // MARK: MKLocalSearchCompleterDelegate (called on the main thread)
+    // MARK: MKLocalSearchCompleterDelegate (MapKit calls these on the main thread)
 
-    nonisolated func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         MainActor.assumeIsolated {
             let results = completer.results
             completions = results
@@ -108,7 +112,7 @@ final class AddressSearchModel: NSObject, MKLocalSearchCompleterDelegate {
         }
     }
 
-    nonisolated func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
+    func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
         MainActor.assumeIsolated {
             completions = []
             suggestions = []

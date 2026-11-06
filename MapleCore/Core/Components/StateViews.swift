@@ -86,6 +86,11 @@ struct SkeletonBlock: View {
     @State private var dim = false
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
+    init(height: CGFloat = 16, width: CGFloat? = nil) {
+        self.height = height
+        self.width = width
+    }
+
     var body: some View {
         RoundedRectangle(cornerRadius: 6, style: .continuous)
             .fill(Palette.surface2)

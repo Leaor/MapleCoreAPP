@@ -74,8 +74,9 @@ struct PropertyGalleryView: View {
                     EmptyStateView(symbol: "photo.on.rectangle.angled", title: total == 0 ? "No photos yet" : "No \(filter.label.lowercased()) photos",
                                    message: total == 0 ? "Visit photos taken by crews appear here after each visit." : "Try another filter.")
                 } else {
+                    let allItems = sections.flatMap(\.items)
                     ForEach(sections) { section in
-                        sectionView(section, allItems: sections.flatMap(\.items))
+                        sectionView(section, allItems: allItems)
                     }
                 }
             }

@@ -556,6 +556,15 @@ public final class AppStore {
         public var queuedOffline: Bool
         public var nextStop: RouteStop?
         public var nextStopNumber: Int?
+
+        public init(propertyName: String, workMinutes: Int, photoCount: Int, queuedOffline: Bool, nextStop: RouteStop? = nil, nextStopNumber: Int? = nil) {
+            self.propertyName = propertyName
+            self.workMinutes = workMinutes
+            self.photoCount = photoCount
+            self.queuedOffline = queuedOffline
+            self.nextStop = nextStop
+            self.nextStopNumber = nextStopNumber
+        }
     }
 
     /// Completes (if needed) and submits the active visit as a report awaiting review.

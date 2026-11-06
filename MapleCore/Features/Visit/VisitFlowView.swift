@@ -56,6 +56,7 @@ struct VisitFlowView: View {
                 emptyState
             }
         }
+        .toastOverlay()
         .sheet(isPresented: $isIssuePresented) {
             VisitIssueSheet()
                 .presentationDetents([.medium, .large])
