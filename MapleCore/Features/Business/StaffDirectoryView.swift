@@ -159,10 +159,15 @@ struct BizStaffLocationLine: View {
                 .font(.footnote)
                 .foregroundStyle(Palette.ink3)
         case let .notShared(lastArrival):
-            Label(lastArrival.map { "Location not shared · last arrival \(Fmt.clock($0))" } ?? "Location not shared", systemImage: "location.slash")
+            Label(notSharedText(lastArrival), systemImage: "location.slash")
                 .font(.footnote)
                 .foregroundStyle(Palette.ink3)
         }
+    }
+
+    private func notSharedText(_ lastArrival: Date?) -> String {
+        guard let lastArrival else { return "Location not shared" }
+        return "Location not shared · last arrival \(Fmt.clock(lastArrival))"
     }
 }
 

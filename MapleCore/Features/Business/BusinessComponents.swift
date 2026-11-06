@@ -292,8 +292,21 @@ struct BizTotalsSection: View {
 /// Decimal helpers for money text fields.
 enum BizDecimal {
     /// Parses "1,234.50" or "70" into a Decimal (nil when not a number or negative).
+    /// Accepts the device's decimal separator too ("12,50" on a French keyboard), since `.decimalPad`
+    /// types the current locale's separator.
     static func parse(_ text: String) -> Decimal? {
-        let cleaned = text.replacingOccurrences(of: ",", with: "").replacingOccurrences(of: "$", with: "").trimmingCharacters(in: .whitespaces)
+        let decimalSeparator = Locale.current.decimalSeparator ?? "."
+        var cleaned = text.replacingOccurrences(of: "$", with: "")
+            .filter { !$0.isWhitespace }
+        if decimalSeparator == "," {
+            // "1.234,50" or "12,50" → "1234.50". Without a comma, "." is the decimal point ("70.00" prefill).
+            if cleaned.contains(",") {
+                cleaned = cleaned.replacingOccurrences(of: ".", with: "")
+                cleaned = cleaned.replacingOccurrences(of: ",", with: ".")
+            }
+        } else {
+            cleaned = cleaned.replacingOccurrences(of: ",", with: "")
+        }
         guard !cleaned.isEmpty, let value = Decimal(string: cleaned, locale: Locale(identifier: "en_US_POSIX")), value >= 0 else { return nil }
         return value.rounded(scale: 2)
     }

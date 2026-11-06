@@ -79,8 +79,8 @@ struct PushNotificationsPreviewView: View {
     }
 
     private var customerMessageTemplate: NotificationTemplate? {
-        let thread = store.adminThreads.first { thread in
-            thread.kind == .customer && thread.messages.contains { $0.authorID == nil && !$0.text.isEmpty }
+        let thread = store.adminThreads.first { candidate in
+            candidate.kind == .customer && candidate.messages.contains { $0.authorID == nil && !$0.text.isEmpty }
         }
         guard let thread, let message = thread.messages.last(where: { $0.authorID == nil && !$0.text.isEmpty }) else { return nil }
         let property = store.property(thread.propertyID)?.name

@@ -41,7 +41,11 @@ struct QuoteBuilderView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar { toolbarContent }
         }
+        // Debounced autosave: restarts on every edit, writes 0.7 s after the last one. Saving never
+        // changes `draft`, so it can't retrigger itself.
         .task(id: draft) { await autosave() }
+        // Closing within the debounce window would cancel the task; write the last edit now.
+        .onDisappear { flushAutosave() }
         .sheet(isPresented: $showsPreview) {
             QuotePreviewSheet(quote: draft)
         }
@@ -213,6 +217,14 @@ struct QuoteBuilderView: View {
         hasAutosaved = true
     }
 
+    /// Saves pending edits on close, but only for a draft that autosave has already written
+    /// (so "Cancel" on a brand-new, never-saved quote still discards it).
+    private func flushAutosave() {
+        guard hasAutosaved, isEditable, draft != baseline, hasContent else { return }
+        store.saveQuote(draft)
+        baseline = draft
+    }
+
     private func sendForApproval() {
         guard missing.isEmpty else {
             withMotion { showsValidation = true }
@@ -220,6 +232,8 @@ struct QuoteBuilderView: View {
             return
         }
         store.sendQuote(draft)
+        // The store now holds the sent version; don't let the close-time flush overwrite it.
+        baseline = draft
         Haptics.success()
         toasts.show(store.isOnline ? "Quote \(draft.number) queued to send" : "Saved on this iPhone · sends automatically")
         dismiss()

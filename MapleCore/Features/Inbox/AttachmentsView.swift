@@ -34,17 +34,23 @@ private struct AttachmentsContent: View {
     @State private var viewing: SharedPhoto?
 
     private var photos: [SharedPhoto] {
-        thread.messages.flatMap { message in
-            message.attachments.filter { $0.kind == .photo }.map { SharedPhoto(attachment: $0, sentAt: message.sentAt) }
+        var result: [SharedPhoto] = []
+        for message in thread.messages.reversed() {
+            for attachment in message.attachments.reversed() where attachment.kind == .photo {
+                result.append(SharedPhoto(attachment: attachment, sentAt: message.sentAt))
+            }
         }
-        .reversed()
+        return result
     }
 
     private var files: [(attachment: Attachment, message: Message)] {
-        thread.messages.flatMap { message in
-            message.attachments.filter { $0.kind != .photo }.map { (attachment: $0, message: message) }
+        var result: [(attachment: Attachment, message: Message)] = []
+        for message in thread.messages.reversed() {
+            for attachment in message.attachments.reversed() where attachment.kind != .photo {
+                result.append((attachment: attachment, message: message))
+            }
         }
-        .reversed()
+        return result
     }
 
     private var visits: [VisitRecord] {

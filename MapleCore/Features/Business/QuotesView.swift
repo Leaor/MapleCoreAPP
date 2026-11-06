@@ -193,17 +193,17 @@ private struct QuoteRow: View {
         let now = store.now
         switch quote.status {
         case .draft:
-            return (quote.division == .construction ? quote.division.companyName : "Edited \(Fmt.ago(quote.updatedAt, now: now))", .neutral)
+            return (quote.division == .construction ? quote.division.companyName : "Edited \(Fmt.ago(quote.updatedAt, now: now))", Tone.neutral)
         case .sent, .viewed:
             if let expires = quote.expiresAt, store.bizDays(from: now, to: expires) <= 7 {
-                return ("Expires \(Fmt.shortDate(expires))", .amber)
+                return ("Expires \(Fmt.shortDate(expires))", Tone.amber)
             }
             if quote.status == .sent, let sent = quote.sentAt, store.bizDays(from: sent, to: now) >= 5 {
-                return ("Follow up", .red)
+                return ("Follow up", Tone.red)
             }
             if let sent = quote.sentAt {
                 let days = store.bizDays(from: sent, to: now)
-                return (days == 0 ? "Sent today" : "Sent \(Fmt.plural(days, "day")) ago", .neutral)
+                return (days == 0 ? "Sent today" : "Sent \(Fmt.plural(days, "day")) ago", Tone.neutral)
             }
             return nil
         case .approved:

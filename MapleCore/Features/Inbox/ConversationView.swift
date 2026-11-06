@@ -165,26 +165,20 @@ private struct ConversationContent: View {
     @ToolbarContentBuilder
     private var toolbarContent: some ToolbarContent {
         ToolbarItem(placement: .principal) {
-            Button {
-                if let headerDestination { model.push(headerDestination) }
-            } label: {
-                VStack(spacing: 0) {
-                    Text(thread.title)
-                        .font(.headline)
-                        .foregroundStyle(Palette.ink)
-                        .lineLimit(1)
-                    Text(thread.subtitle)
-                        .font(.caption)
-                        .foregroundStyle(Palette.ink2)
-                        .lineLimit(1)
+            if let headerDestination {
+                Button {
+                    model.push(headerDestination)
+                } label: {
+                    headerTitle
                 }
-                .frame(minHeight: Hit.min)
-                .contentShape(Rectangle())
+                .buttonStyle(.plain)
+                .accessibilityElement(children: .combine)
+                .accessibilityHint("Opens details")
+            } else {
+                headerTitle
+                    .accessibilityElement(children: .combine)
+                    .accessibilityAddTraits(.isHeader)
             }
-            .buttonStyle(.plain)
-            .disabled(headerDestination == nil)
-            .accessibilityElement(children: .combine)
-            .accessibilityHint(headerDestination == nil ? "" : "Opens details")
         }
         ToolbarItemGroup(placement: .topBarTrailing) {
             if let customerPhoneURL {
@@ -213,6 +207,21 @@ private struct ConversationContent: View {
             }
             .accessibilityLabel("More options")
         }
+    }
+
+    private var headerTitle: some View {
+        VStack(spacing: 0) {
+            Text(thread.title)
+                .font(.headline)
+                .foregroundStyle(Palette.ink)
+                .lineLimit(1)
+            Text(thread.subtitle)
+                .font(.caption)
+                .foregroundStyle(Palette.ink2)
+                .lineLimit(1)
+        }
+        .frame(minHeight: Hit.min)
+        .contentShape(Rectangle())
     }
 
     // MARK: Composer
@@ -391,7 +400,10 @@ private struct ConversationContent: View {
             guard let data = try await item.loadTransferable(type: Data.self) else {
                 throw CocoaError(.fileReadUnknown)
             }
-            let fileName = try PhotoStorage.save(data: data)
+            // Decode and re-encode off the main thread so the composer stays responsive.
+            let fileName = try await Task.detached(priority: .userInitiated) {
+                try PhotoStorage.save(data: data)
+            }.value
             let attachment = Attachment(id: UUID().uuidString, kind: .photo, name: fileName, detail: "Photo",
                                         swatch: pendingAttachments.count, upload: .savedOnDevice)
             pendingAttachments.append(attachment)
