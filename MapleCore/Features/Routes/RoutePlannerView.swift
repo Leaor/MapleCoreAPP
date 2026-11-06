@@ -60,6 +60,7 @@ struct RoutePlannerView: View {
                 }
             }
         }
+        .toastOverlay()
         .interactiveDismissDisabled(hasEdits)
         .confirmationDialog("Discard changes to this route?", isPresented: $showsDiscard, titleVisibility: .visible) {
             Button("Discard Changes", role: .destructive) { dismiss() }

@@ -1,5 +1,4 @@
 import XCTest
-import MapleCoreKit
 @testable import MapleCore
 
 /// App-layer tests: navigation state, role routing and the visit cover. Domain logic is covered by
@@ -40,6 +39,9 @@ final class AppModelTests: XCTestCase {
         let model = makeModel(account: Fixtures.accounts[1], role: .field)
         XCTAssertNil(model.store.activeVisit)
         model.open(FieldTab.camera)
+        XCTAssertNil(model.store.activeVisit, "camera asks before arriving")
+        XCTAssertEqual(model.pendingArrival?.stopID, "north-6")
+        model.confirmArrival()
         XCTAssertTrue(model.isVisitPresented)
         XCTAssertEqual(model.store.activeVisit?.propertyID, Fixtures.ID.islington)
         XCTAssertEqual(model.fieldTab, .today, "camera never becomes the selected tab")
@@ -69,6 +71,17 @@ final class AppModelTests: XCTestCase {
         model.store.arrive(routeID: Fixtures.ID.routeNorth, stopID: "north-6")
         model.handle(url: URL(string: "maplecore://visit")!)
         XCTAssertTrue(model.isVisitPresented)
+    }
+
+    func testLiveActivityIntentPausesVisitWithoutViews() throws {
+        let model = makeModel(account: Fixtures.accounts[1], role: .field)
+        model.store.arrive(routeID: Fixtures.ID.routeNorth, stopID: "north-6")
+        try model.store.updateVisit { s, now in
+            for _ in 0..<3 { s.addPhoto(kind: .before, at: now) }
+            try s.startWork(at: now)
+        }
+        NotificationCenter.default.post(name: .visitIntent, object: nil, userInfo: [VisitIntentAction.userInfoKey: VisitIntentAction.pause.rawValue])
+        XCTAssertEqual(model.store.activeVisit?.state, .paused)
     }
 
     func testSimulatedOfflineUpdatesStore() {

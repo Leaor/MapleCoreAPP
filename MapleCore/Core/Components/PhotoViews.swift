@@ -114,9 +114,18 @@ struct PhotoCompareSlider: View {
                 label("AFTER").frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             }
             .contentShape(Rectangle())
-            .gesture(DragGesture(minimumDistance: 0).onChanged { value in
-                split = min(max(value.location.x / max(width, 1), 0.05), 0.95)
-            })
+            // Both hosts are vertical ScrollViews: a simultaneous, mostly-horizontal drag moves the
+            // divider without swallowing vertical scrolls that start on the photo. Tap jumps to a point.
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 6)
+                    .onChanged { value in
+                        guard abs(value.translation.width) >= abs(value.translation.height) else { return }
+                        split = Self.clampedSplit(value.location.x, width: width)
+                    }
+            )
+            .onTapGesture(coordinateSpace: .local) { location in
+                split = Self.clampedSplit(location.x, width: width)
+            }
         }
         .clipShape(RoundedRectangle(cornerRadius: Radius.card, style: .continuous))
         .accessibilityElement()
@@ -129,6 +138,10 @@ struct PhotoCompareSlider: View {
             @unknown default: break
             }
         }
+    }
+
+    private static func clampedSplit(_ x: CGFloat, width: CGFloat) -> CGFloat {
+        min(max(x / max(width, 1), 0.05), 0.95)
     }
 
     private func label(_ text: String) -> some View {

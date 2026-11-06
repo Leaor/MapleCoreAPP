@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		B97B5EE996CA91316E68D018 /* MapleCoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = B70D16E744EAA68A9A44C7FF; };
 		5E45BEAFF8750FEE33937999 /* MapleCoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = 114CCEE5713AE46BD805C3E6; };
-		4E75F0AF807C111F4EAC931C /* MapleCoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9140BA3DEDDA7A1FED6FF829; };
 		B7028ADDA01484A1806B36DA /* MapleCoreWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B8E7F0230C5182807AD19A43; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -132,7 +131,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E75F0AF807C111F4EAC931C,
+
 			);
 			name = "Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -244,7 +243,7 @@
 			);
 			name = MapleCoreTests;
 			packageProductDependencies = (
-				9140BA3DEDDA7A1FED6FF829,
+
 			);
 			productName = MapleCoreTests;
 			productReference = 7CD3C1D72E27F24EAC1773E4;
@@ -729,11 +728,6 @@
 			productName = MapleCoreKit;
 		};
 		114CCEE5713AE46BD805C3E6 /* MapleCoreKit */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DCE6DCD9CBEDFFC71950EF11;
-			productName = MapleCoreKit;
-		};
-		9140BA3DEDDA7A1FED6FF829 /* MapleCoreKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = DCE6DCD9CBEDFFC71950EF11;
 			productName = MapleCoreKit;

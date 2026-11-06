@@ -31,10 +31,20 @@ final class AppModel {
     }
     private(set) var networkReachable = true
 
+    /// The Camera tab asks before arriving, so a stray tap never marks a stop In Progress.
+    struct ArrivalPrompt: Identifiable, Equatable {
+        let routeID: Route.ID
+        let stopID: RouteStop.ID
+        let propertyName: String
+        var id: RouteStop.ID { stopID }
+    }
+    var pendingArrival: ArrivalPrompt?
+
     let store: AppStore
     let auth: any AuthService
     let toasts = ToastCenter()
     @ObservationIgnored private let monitor = NWPathMonitor()
+    @ObservationIgnored private var intentObserver: NSObjectProtocol?
 
     init(store: AppStore, auth: any AuthService = MockAuthService()) {
         self.store = store
@@ -49,6 +59,24 @@ final class AppModel {
             }
         }
         monitor.start(queue: DispatchQueue(label: "maplecore.network"))
+
+        // Live Activity buttons run as App Intents in this process, possibly before any view exists
+        // (background launch), so the model — created at launch — handles them.
+        intentObserver = NotificationCenter.default.addObserver(forName: .visitIntent, object: nil, queue: .main) { [weak self] note in
+            let raw = note.userInfo?[VisitIntentAction.userInfoKey] as? String
+            MainActor.assumeIsolated {
+                guard let raw, let action = VisitIntentAction(rawValue: raw) else { return }
+                self?.handle(action)
+            }
+        }
+    }
+
+    func handle(_ action: VisitIntentAction) {
+        switch action {
+        case .pause: try? store.updateVisit { s, now in try s.pause(at: now) }
+        case .resume: try? store.updateVisit { s, now in try s.resume(at: now) }
+        case .afterPhotos: if store.activeVisit != nil { isVisitPresented = true }
+        }
     }
 
     private func applyConnectivity() {
@@ -96,20 +124,32 @@ final class AppModel {
 
     // MARK: Visit
 
-    /// Opens the visit cover. If no visit is active, starts one at the crew's next stop (arrive).
+    /// Opens the visit cover. With no active visit, asks to arrive at the crew's next stop first.
     func presentVisit() {
-        if store.activeVisit == nil, let route = store.fieldRoute, let next = route.nextStop {
-            if store.isReadOnly {
-                toasts.show("Preview only — visits can't be started", symbol: "eye", tone: .blue)
-                return
-            }
-            store.arrive(routeID: route.id, stopID: next.id)
-            Haptics.impact(.medium)
+        if store.activeVisit != nil {
+            isVisitPresented = true
+            return
         }
-        guard store.activeVisit != nil else {
+        guard let route = store.fieldRoute, let next = route.nextStop else {
             toasts.show("No stop to start right now", symbol: "info.circle", tone: .blue)
             return
         }
+        if store.isReadOnly {
+            toasts.show("Preview only — visits can't be started", symbol: "eye", tone: .blue)
+            return
+        }
+        pendingArrival = ArrivalPrompt(routeID: route.id, stopID: next.id, propertyName: store.property(next.propertyID)?.name ?? "the next stop")
+    }
+
+    /// Confirms the Camera-tab arrival prompt: marks arrival and opens the visit.
+    func confirmArrival() {
+        guard let prompt = pendingArrival else { return }
+        pendingArrival = nil
+        guard store.arrive(routeID: prompt.routeID, stopID: prompt.stopID) != nil else {
+            toasts.show("Finish the visit in progress first", symbol: "info.circle", tone: .blue)
+            return
+        }
+        Haptics.impact(.medium)
         isVisitPresented = true
     }
 

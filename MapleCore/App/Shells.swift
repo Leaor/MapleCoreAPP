@@ -45,6 +45,8 @@ struct AdminShell: View {
         .fullScreenCover(isPresented: $model.isFieldPreviewPresented, onDismiss: { store.endRolePreview() }) {
             FieldShell()
                 .environment(\.isRolePreview, true)
+                // Covers sit above RootView's overlay, so they host their own toast layer.
+                .toastOverlay()
         }
     }
 }
@@ -111,19 +113,15 @@ struct FieldShell: View {
         .onChange(of: store.activeVisit) { _, session in
             LiveActivityController.shared.sync(session)
         }
-        .onReceive(NotificationCenter.default.publisher(for: .visitIntent)) { note in
-            handleIntent(note)
-        }
-    }
-
-    /// Live Activity buttons (App Intents) run in the app process and post here.
-    private func handleIntent(_ note: Notification) {
-        guard let raw = note.userInfo?[VisitIntentAction.userInfoKey] as? String,
-              let action = VisitIntentAction(rawValue: raw) else { return }
-        switch action {
-        case .pause: try? store.updateVisit { s, now in try s.pause(at: now) }
-        case .resume: try? store.updateVisit { s, now in try s.resume(at: now) }
-        case .afterPhotos: model.isVisitPresented = true
+        .confirmationDialog(
+            "Arrive at \(model.pendingArrival?.propertyName ?? "the next stop")?",
+            isPresented: Binding(get: { model.pendingArrival != nil }, set: { if !$0 { model.pendingArrival = nil } }),
+            titleVisibility: .visible
+        ) {
+            Button("I've Arrived · Start Visit") { model.confirmArrival() }
+            Button("Cancel", role: .cancel) { model.pendingArrival = nil }
+        } message: {
+            Text("This records your arrival time and starts the before-photo step.")
         }
     }
 }

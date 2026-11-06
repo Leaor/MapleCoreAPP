@@ -84,7 +84,7 @@ persistence round-trip) and the mock auth (expiry, lockout). They run on macOS o
 xcodebuild test -project MapleCore.xcodeproj -scheme MapleCore -destination 'platform=iOS Simulator,name=iPhone 16'
 ```
 
-Runs the app-level unit tests (`MapleCoreTests`: navigation model, camera-tab behaviour, deep links) and UI
+Runs the app-level unit tests (`MapleCoreTests`: navigation model, camera-tab arrival confirmation, deep links, Live Activity intents) and UI
 tests (`MapleCoreUITests`: sign-in errors, admin tab navigation, tab state preservation, field arrive → visit).
 
 `scripts/check-syntax.sh` parses every app/widget Swift file with `swiftc` (useful without Xcode).
@@ -96,7 +96,10 @@ This project was produced in a Linux environment **without Xcode or an iOS SDK**
 - `MapleCoreKit` builds in Swift 6 mode and its 37 unit tests pass (Swift 6.0.3, Linux).
 - Every app, widget and test Swift file parses (`swiftc -parse`).
 - The Xcode project file parses and has no dangling object references; the scheme XML is valid.
-- Every screen was reviewed line-by-line against the iOS 17 SDK APIs and the package's public API.
+- Every screen was reviewed line-by-line against the iOS 17 SDK APIs and the package's public API by
+  four independent reviewers (two definite compile errors found and fixed, plus logic/UX fixes).
+- Automated cross-checks: every `store.`/`model.` member referenced by views exists, every navigation
+  contract type exists, and no type name is defined twice.
 
 What has **not** been done yet: an Xcode build, running the app on a simulator, the `MapleCoreTests` and
 UI tests, and visual comparison on device. Expect a short round of compiler fixes on the first Xcode build.

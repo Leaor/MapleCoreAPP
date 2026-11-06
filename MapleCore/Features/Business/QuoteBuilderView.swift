@@ -43,6 +43,7 @@ struct QuoteBuilderView: View {
         }
         // Debounced autosave: restarts on every edit, writes 0.7 s after the last one. Saving never
         // changes `draft`, so it can't retrigger itself.
+        .toastOverlay()
         .task(id: draft) { await autosave() }
         // Closing within the debounce window would cancel the task; write the last edit now.
         .onDisappear { flushAutosave() }
