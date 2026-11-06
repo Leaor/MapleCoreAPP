@@ -263,3 +263,15 @@ final class StoreRegressionTests: XCTestCase {
         XCTAssertEqual(store.directThread(with: Fixtures.ID.michael), Fixtures.ID.threadMichaelDaniel)
     }
 }
+
+@MainActor
+final class AttachmentSyncTests: XCTestCase {
+    func testSyncMarksAttachmentsUploaded() async {
+        let store = AppStore(persistence: nil, syncMode: .demo)
+        store.syncStepDelay = .zero
+        store.signIn(Fixtures.accounts[0])
+        store.send("", to: Fixtures.ID.threadCrewA, visibility: .internal, attachments: [Attachment(id: "x", kind: .photo, name: "a.jpg", upload: .savedOnDevice)])
+        await store.syncPending()
+        XCTAssertEqual(store.thread(Fixtures.ID.threadCrewA)?.messages.last?.attachments.first?.upload, .uploaded)
+    }
+}

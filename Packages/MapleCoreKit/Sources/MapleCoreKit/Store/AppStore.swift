@@ -759,8 +759,9 @@ public final class AppStore {
         mutate {
             let letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".map(String.init)
             let letter = letters.first { l in !crews.contains { $0.letter == l } } ?? "X"
-            let crew = Crew(id: UUID().uuidString, name: "Crew \(letter)", letter: letter, leadID: leadID, memberIDs: Array(Set([leadID] + memberIDs)), truck: truck)
+            let crew = Crew(id: UUID().uuidString, name: "Crew \(letter)", letter: letter, leadID: leadID, memberIDs: [leadID] + memberIDs.filter { $0 != leadID }, truck: truck)
             crews.append(crew)
+            enqueue(.note, title: "New crew · \(crew.name)", detail: truck)
             for id in crew.memberIDs {
                 if let i = staff.firstIndex(where: { $0.id == id }) {
                     let old = staff[i].crewID
@@ -909,6 +910,9 @@ public final class AppStore {
         for t in threads.indices {
             for m in threads[t].messages.indices where threads[t].messages[m].delivery == .queued {
                 threads[t].messages[m].delivery = .sent
+                for a in threads[t].messages[m].attachments.indices where threads[t].messages[m].attachments[a].upload != .uploaded {
+                    threads[t].messages[m].attachments[a].upload = .uploaded
+                }
             }
         }
         for v in visitRecords.indices where visitRecords[v].receivedAt == nil && visitRecords[v].kind == .visit {
