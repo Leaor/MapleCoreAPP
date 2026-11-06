@@ -45,17 +45,17 @@ struct OnboardingFlow: View {
     private func content(for phase: Phase) -> some View {
         switch phase {
         case .splash:
-            SplashView { self.phase = .signIn }
+            OnboardingSplashView { self.phase = .signIn }
         case .signIn:
-            SignInFlow { account in self.phase = .loading(account) }
+            OnboardingSignInFlow { account in self.phase = .loading(account) }
         case let .loading(account):
-            AccountLoadingView(account: account) { finishLoading(account) }
+            OnboardingLoadingView(account: account) { finishLoading(account) }
         case .role:
-            RoleSelectionView { advanceAfterRole() }
+            OnboardingRoleView { advanceAfterRole() }
         case .notifications:
-            NotificationsPermissionView { advanceAfterNotifications() }
+            OnboardingNotificationsView { advanceAfterNotifications() }
         case .location:
-            LocationPermissionView { store.completePermissions() }
+            OnboardingLocationView { store.completePermissions() }
         }
     }
 
@@ -87,7 +87,7 @@ struct OnboardingFlow: View {
 // MARK: - Shared onboarding chrome
 
 /// Brand mark used across onboarding. Uses the `BrandMark` asset.
-struct BrandMarkImage: View {
+struct OnboardingBrandMark: View {
     var size: CGFloat
 
     var body: some View {
@@ -123,7 +123,7 @@ struct OnboardingHeading: View {
 }
 
 /// Horizontal shake for rejected input. Callers skip it under Reduce Motion.
-struct ShakeEffect: GeometryEffect {
+struct OnboardingShakeEffect: GeometryEffect {
     var travel: CGFloat = 8
     var shakes: CGFloat = 3
     var animatableData: CGFloat

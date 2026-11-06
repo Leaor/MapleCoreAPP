@@ -4,13 +4,13 @@ import MapleCoreKit
 // MARK: - Splash
 
 /// Brief brand moment. Advances on its own (or on tap) to Sign in.
-struct SplashView: View {
+struct OnboardingSplashView: View {
     var onFinish: () -> Void
 
     var body: some View {
         VStack(spacing: Space.xl) {
             Spacer(minLength: Space.xxxl)
-            BrandMarkImage(size: 96)
+            OnboardingBrandMark(size: 96)
             VStack(spacing: Space.s) {
                 Text("MAPLE CORE")
                     .font(.title.weight(.bold))
@@ -51,7 +51,7 @@ struct SplashView: View {
 
 /// Sign in by work email or mobile, then the 6-digit code. Uses a NavigationStack so Verify gets the
 /// system back button.
-struct SignInFlow: View {
+struct OnboardingSignInFlow: View {
     var onSignedIn: (Account) -> Void
 
     @Environment(AppModel.self) private var model
@@ -75,7 +75,7 @@ struct SignInFlow: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .navigationDestination(isPresented: $showVerify) {
                     if let challenge {
-                        VerifyCodeView(login: login, challenge: challenge, onSignedIn: onSignedIn)
+                        OnboardingVerifyView(login: login, challenge: challenge, onSignedIn: onSignedIn)
                     }
                 }
         }
@@ -85,7 +85,7 @@ struct SignInFlow: View {
     private var form: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: Space.xl) {
-                BrandMarkImage(size: 44)
+                OnboardingBrandMark(size: 44)
                 OnboardingHeading(title: "Sign in", message: "For MapleCore staff. Use the work email or mobile number your manager added to your account.")
                 loginField
                 Button(action: requestCode) {
@@ -98,7 +98,7 @@ struct SignInFlow: View {
                 .disabled(!canContinue)
                 .accessibilityIdentifier("signin-continue")
 
-                DemoAccountsPicker { account in
+                OnboardingDemoAccounts { account in
                     login = account.login
                     errorMessage = nil
                 }
@@ -181,7 +181,7 @@ struct SignInFlow: View {
 }
 
 /// Quick-fill buttons for the preview build's demo accounts. Clearly labelled as demo data.
-private struct DemoAccountsPicker: View {
+private struct OnboardingDemoAccounts: View {
     var onPick: (Account) -> Void
 
     var body: some View {
@@ -227,7 +227,7 @@ private struct DemoAccountsPicker: View {
 
 /// 6-digit code entry. One real text field (so iOS can offer the code from Mail or Messages)
 /// drawn as six boxes. Submits automatically when six digits are entered.
-struct VerifyCodeView: View {
+struct OnboardingVerifyView: View {
     let login: String
     var onSignedIn: (Account) -> Void
 
@@ -313,7 +313,7 @@ struct VerifyCodeView: View {
             }
             .contentShape(Rectangle())
             .onTapGesture { focused = true }
-            .modifier(ShakeEffect(animatableData: shakes))
+            .modifier(OnboardingShakeEffect(animatableData: shakes))
             .onChange(of: code) { _, newValue in handleInput(newValue) }
 
             if isVerifying {
@@ -464,6 +464,6 @@ struct VerifyCodeView: View {
 }
 
 #Preview("Sign in") {
-    SignInFlow(onSignedIn: { _ in })
+    OnboardingSignInFlow(onSignedIn: { _ in })
         .previewEnvironment()
 }

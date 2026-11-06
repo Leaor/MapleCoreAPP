@@ -6,7 +6,7 @@ import MapleCoreKit
 // MARK: - Account loading
 
 /// "Getting your day ready": a short checklist while the session is set up on this iPhone.
-struct AccountLoadingView: View {
+struct OnboardingLoadingView: View {
     let account: Account
     var onDone: () -> Void
 
@@ -21,7 +21,7 @@ struct AccountLoadingView: View {
     var body: some View {
         VStack(spacing: Space.xxl) {
             Spacer(minLength: Space.xxl)
-            BrandMarkImage(size: 56)
+            OnboardingBrandMark(size: 56)
             VStack(spacing: Space.s) {
                 Text("Getting your day ready")
                     .font(.title2.weight(.bold))
@@ -86,7 +86,7 @@ struct AccountLoadingView: View {
 // MARK: - Role selection
 
 /// Only shown for accounts that hold both an admin-shell role and Field.
-struct RoleSelectionView: View {
+struct OnboardingRoleView: View {
     var onContinue: () -> Void
 
     @Environment(AppStore.self) private var store
@@ -179,7 +179,7 @@ private struct RoleCard: View {
 // MARK: - Notifications pre-prompt
 
 /// Explains notifications before the system prompt so the one-time question lands well.
-struct NotificationsPermissionView: View {
+struct OnboardingNotificationsView: View {
     var onDone: () -> Void
 
     @State private var isRequesting = false
@@ -256,10 +256,10 @@ private struct ExampleNotification: View {
 // MARK: - Location explanation (Field)
 
 /// Field only. Explains when location is shared, then asks for When-In-Use access.
-struct LocationPermissionView: View {
+struct OnboardingLocationView: View {
     var onDone: () -> Void
 
-    @State private var requester: LocationPermissionRequester?
+    @State private var requester: OnboardingLocationRequester?
 
     var body: some View {
         ScrollView {
@@ -309,7 +309,7 @@ struct LocationPermissionView: View {
     }
 
     private func request() {
-        let requester = LocationPermissionRequester()
+        let requester = OnboardingLocationRequester()
         self.requester = requester
         Task {
             await requester.request()
@@ -345,7 +345,7 @@ private struct LocationIllustration: View {
 /// Holds the location manager until the user answers the system prompt (the prompt disappears if
 /// the manager is released), then resumes.
 @MainActor
-final class LocationPermissionRequester: NSObject, CLLocationManagerDelegate {
+final class OnboardingLocationRequester: NSObject, CLLocationManagerDelegate {
     private let manager = CLLocationManager()
     private var continuation: CheckedContinuation<Void, Never>?
 
@@ -372,16 +372,16 @@ final class LocationPermissionRequester: NSObject, CLLocationManagerDelegate {
 }
 
 #Preview("Role") {
-    RoleSelectionView(onContinue: {})
+    OnboardingRoleView(onContinue: {})
         .previewEnvironment()
 }
 
 #Preview("Notifications") {
-    NotificationsPermissionView(onDone: {})
+    OnboardingNotificationsView(onDone: {})
         .previewEnvironment()
 }
 
 #Preview("Location") {
-    LocationPermissionView(onDone: {})
+    OnboardingLocationView(onDone: {})
         .previewEnvironment(role: .field)
 }
