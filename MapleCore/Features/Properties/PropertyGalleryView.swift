@@ -48,9 +48,9 @@ struct PropertyGalleryView: View {
     }
 
     private var sections: [GallerySection] {
-        photoRecords.compactMap { record in
-            let items = items(for: record)
-            return items.isEmpty ? nil : GallerySection(record: record, items: items)
+        photoRecords.compactMap { record -> GallerySection? in
+            let recordItems = self.items(for: record)
+            return recordItems.isEmpty ? nil : GallerySection(record: record, items: recordItems)
         }
     }
 

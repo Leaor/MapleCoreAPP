@@ -231,7 +231,7 @@ private struct PropertyDetailContent: View {
     }
 
     private func initials(_ name: String) -> String {
-        name.split(separator: " ").prefix(2).compactMap(\.first).map(String.init).joined().uppercased()
+        name.split(separator: " ").prefix(2).compactMap(\.first).map { String($0) }.joined().uppercased()
     }
 
     // MARK: Access, equipment, notes

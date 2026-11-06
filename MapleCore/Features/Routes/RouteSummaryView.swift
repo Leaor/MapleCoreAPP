@@ -225,10 +225,10 @@ private struct RouteSummaryScreen: View {
 
     // MARK: Timeline
 
-    private var timelineEntries: [TimelineEntry] {
-        var entries: [TimelineEntry] = []
+    private var timelineEntries: [RouteTimelineEntry] {
+        var entries: [RouteTimelineEntry] = []
         for (index, stop) in route.stops.enumerated() {
-            entries.append(TimelineEntry(number: index + 1, stop: stop))
+            entries.append(RouteTimelineEntry(number: index + 1, stop: stop))
         }
         return entries
     }
@@ -285,7 +285,7 @@ private struct RouteSummaryScreen: View {
     }
 }
 
-private struct TimelineEntry: Identifiable {
+private struct RouteTimelineEntry: Identifiable {
     let number: Int
     let stop: RouteStop
     var id: RouteStop.ID { stop.id }
