@@ -1,0 +1,744 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B97B5EE996CA91316E68D018 /* MapleCoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = B70D16E744EAA68A9A44C7FF; };
+		5E45BEAFF8750FEE33937999 /* MapleCoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = 114CCEE5713AE46BD805C3E6; };
+		4E75F0AF807C111F4EAC931C /* MapleCoreKit in Frameworks */ = {isa = PBXBuildFile; productRef = 9140BA3DEDDA7A1FED6FF829; };
+		B7028ADDA01484A1806B36DA /* MapleCoreWidgetsExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = B8E7F0230C5182807AD19A43; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A2C8AF60895CF389F36ED320 = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F86FAA6BBF9AC94A7E4595;
+			proxyType = 1;
+			remoteGlobalIDString = DB98B762FFD7DD3877EEA94A;
+			remoteInfo = MapleCoreWidgetsExtension;
+		};
+		71F36547F22881E321AAEA06 = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F86FAA6BBF9AC94A7E4595;
+			proxyType = 1;
+			remoteGlobalIDString = D2A57DC1D883FD21FB995169;
+			remoteInfo = MapleCore;
+		};
+		1A85C8AB603A365B62E2BE11 = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 46F86FAA6BBF9AC94A7E4595;
+			proxyType = 1;
+			remoteGlobalIDString = D2A57DC1D883FD21FB995169;
+			remoteInfo = MapleCore;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		CF85AC55444E92E2A151D05E /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				B7028ADDA01484A1806B36DA,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		81918909E83595C8F4212CCC /* MapleCore.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapleCore.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B8E7F0230C5182807AD19A43 /* MapleCoreWidgetsExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MapleCoreWidgetsExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CD3C1D72E27F24EAC1773E4 /* MapleCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapleCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1F621FF867323C311B86E06F /* MapleCoreUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MapleCoreUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		0102A171E406E37C03E11289 /* Exceptions for "MapleCore" folder in "MapleCore" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+			);
+			target = D2A57DC1D883FD21FB995169;
+		};
+		CF068D4BD71181A2D13B5110 /* Exceptions for "MapleCoreWidgets" folder in "MapleCoreWidgetsExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DB98B762FFD7DD3877EEA94A;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		30BAE363BF904CFF4BA52B3A /* MapleCore */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				0102A171E406E37C03E11289 /* Exceptions */,
+			);
+			path = MapleCore;
+			sourceTree = "<group>";
+		};
+		A01B5CB932856B6168E43F89 /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		2EC315634F7785AE43927C87 /* MapleCoreWidgets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				CF068D4BD71181A2D13B5110 /* Exceptions */,
+			);
+			path = MapleCoreWidgets;
+			sourceTree = "<group>";
+		};
+		2D37C3E59151CF20A7B3EF60 /* MapleCoreTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MapleCoreTests;
+			sourceTree = "<group>";
+		};
+		405530CA29788DB82F7FB510 /* MapleCoreUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = MapleCoreUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		0248D6DB510EB0F7E9C05175 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B97B5EE996CA91316E68D018,
+			);
+			name = "Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		600E732B0A948441BF569880 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5E45BEAFF8750FEE33937999,
+			);
+			name = "Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		641F1AF0EAA879E4F140BFD3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4E75F0AF807C111F4EAC931C,
+			);
+			name = "Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		71B04DEBDFCC984DD8794547 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+
+			);
+			name = "Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8D3FC6DB5D0827F168A73277 = {
+			isa = PBXGroup;
+			children = (
+				30BAE363BF904CFF4BA52B3A /* MapleCore */,
+				A01B5CB932856B6168E43F89 /* Shared */,
+				2EC315634F7785AE43927C87 /* MapleCoreWidgets */,
+				2D37C3E59151CF20A7B3EF60 /* MapleCoreTests */,
+				405530CA29788DB82F7FB510 /* MapleCoreUITests */,
+				1BADDC1D73C1A20F347483E1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1BADDC1D73C1A20F347483E1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				81918909E83595C8F4212CCC /* MapleCore.app */,
+				B8E7F0230C5182807AD19A43 /* MapleCoreWidgetsExtension.appex */,
+				7CD3C1D72E27F24EAC1773E4 /* MapleCoreTests.xctest */,
+				1F621FF867323C311B86E06F /* MapleCoreUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D2A57DC1D883FD21FB995169 /* MapleCore */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBFE79A791796F23E65A3A86;
+			buildPhases = (
+				DA10D9DD089DF2AFEBC5ED5A,
+				0248D6DB510EB0F7E9C05175,
+				82A968CB662751220D4DFE2D,
+				CF85AC55444E92E2A151D05E,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				78DB79B28D0456E2CF3F8605,
+			);
+			fileSystemSynchronizedGroups = (
+				30BAE363BF904CFF4BA52B3A,
+				A01B5CB932856B6168E43F89,
+			);
+			name = MapleCore;
+			packageProductDependencies = (
+				B70D16E744EAA68A9A44C7FF,
+			);
+			productName = MapleCore;
+			productReference = 81918909E83595C8F4212CCC;
+			productType = "com.apple.product-type.application";
+		};
+		DB98B762FFD7DD3877EEA94A /* MapleCoreWidgetsExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A95504A2B6F3EC478F113463;
+			buildPhases = (
+				550B2F15260A013E0DCB8C20,
+				600E732B0A948441BF569880,
+				2CB172A0949CA8E5D52FC05B,
+			);
+			buildRules = (
+			);
+			dependencies = (
+
+			);
+			fileSystemSynchronizedGroups = (
+				2EC315634F7785AE43927C87,
+				A01B5CB932856B6168E43F89,
+			);
+			name = MapleCoreWidgetsExtension;
+			packageProductDependencies = (
+				114CCEE5713AE46BD805C3E6,
+			);
+			productName = MapleCoreWidgetsExtension;
+			productReference = B8E7F0230C5182807AD19A43;
+			productType = "com.apple.product-type.app-extension";
+		};
+		B1A5D251FA4FE598CB947FFC /* MapleCoreTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09D19F07600FD9AC31F731CD;
+			buildPhases = (
+				E2B2403817F5B4974B1295C1,
+				641F1AF0EAA879E4F140BFD3,
+				748B5569DA843DD1FABF1F42,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				77CC189650F7D3ADDF484E57,
+			);
+			fileSystemSynchronizedGroups = (
+				2D37C3E59151CF20A7B3EF60,
+			);
+			name = MapleCoreTests;
+			packageProductDependencies = (
+				9140BA3DEDDA7A1FED6FF829,
+			);
+			productName = MapleCoreTests;
+			productReference = 7CD3C1D72E27F24EAC1773E4;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		91B40CD81FB2A51014AA79BC /* MapleCoreUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1B0200DDEFADC248B3A23F0A;
+			buildPhases = (
+				9AFC4F17F051A7F45D9735D8,
+				71B04DEBDFCC984DD8794547,
+				9AF1D7E5A555BF8929539D56,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				5F610FF3AE365AAE2379E94B,
+			);
+			fileSystemSynchronizedGroups = (
+				405530CA29788DB82F7FB510,
+			);
+			name = MapleCoreUITests;
+			packageProductDependencies = (
+
+			);
+			productName = MapleCoreUITests;
+			productReference = 1F621FF867323C311B86E06F;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					D2A57DC1D883FD21FB995169 = { CreatedOnToolsVersion = 16.0; };
+					DB98B762FFD7DD3877EEA94A = { CreatedOnToolsVersion = 16.0; };
+					B1A5D251FA4FE598CB947FFC = { CreatedOnToolsVersion = 16.0; TestTargetID = D2A57DC1D883FD21FB995169; };
+					91B40CD81FB2A51014AA79BC = { CreatedOnToolsVersion = 16.0; TestTargetID = D2A57DC1D883FD21FB995169; };
+				};
+			};
+			buildConfigurationList = 5BF065D48D8C23D03623AA6A;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8D3FC6DB5D0827F168A73277;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DCE6DCD9CBEDFFC71950EF11 /* XCLocalSwiftPackageReference "Packages/MapleCoreKit" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 1BADDC1D73C1A20F347483E1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2A57DC1D883FD21FB995169 /* MapleCore */,
+				DB98B762FFD7DD3877EEA94A /* MapleCoreWidgetsExtension */,
+				B1A5D251FA4FE598CB947FFC /* MapleCoreTests */,
+				91B40CD81FB2A51014AA79BC /* MapleCoreUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		82A968CB662751220D4DFE2D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+
+			);
+			name = "Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2CB172A0949CA8E5D52FC05B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+
+			);
+			name = "Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		748B5569DA843DD1FABF1F42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+
+			);
+			name = "Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AF1D7E5A555BF8929539D56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+
+			);
+			name = "Resources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DA10D9DD089DF2AFEBC5ED5A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+
+			);
+			name = "Sources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		550B2F15260A013E0DCB8C20 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+
+			);
+			name = "Sources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E2B2403817F5B4974B1295C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+
+			);
+			name = "Sources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9AFC4F17F051A7F45D9735D8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+
+			);
+			name = "Sources";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		78DB79B28D0456E2CF3F8605 = {
+			isa = PBXTargetDependency;
+			target = DB98B762FFD7DD3877EEA94A;
+			targetProxy = A2C8AF60895CF389F36ED320;
+		};
+		77CC189650F7D3ADDF484E57 = {
+			isa = PBXTargetDependency;
+			target = D2A57DC1D883FD21FB995169;
+			targetProxy = 71F36547F22881E321AAEA06;
+		};
+		5F610FF3AE365AAE2379E94B = {
+			isa = PBXTargetDependency;
+			target = D2A57DC1D883FD21FB995169;
+			targetProxy = 1A85C8AB603A365B62E2BE11;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		FA9139DD8B03E3F922556BF8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FFE2104CCFAB79205AC64460 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 5.0;
+				SWIFT_STRICT_CONCURRENCY = complete;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		72FB3ED29B4639D83EC5DB14 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MapleCore/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MapleCore;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSCameraUsageDescription = "MapleCore takes proof-of-work photos in the app so they're tied to the visit.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Shows your ETA and confirms arrival at each property. Shared only while your shift is active.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maplecore.operations;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		191734982F22ABEBB64A1AE0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MapleCore/Resources/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MapleCore;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.business";
+				INFOPLIST_KEY_NSCameraUsageDescription = "MapleCore takes proof-of-work photos in the app so they're tied to the visit.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Shows your ETA and confirms arrival at each property. Shared only while your shift is active.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maplecore.operations;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		349A7CDD7B5757405FB475F0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MapleCoreWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MapleCore;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maplecore.operations.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		35FD30AF9D1354CC59CEA9A2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = MapleCoreWidgets/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = MapleCore;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maplecore.operations.widgets;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		B1DDA1C206B61B04D2309EE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maplecore.operations.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MapleCore.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MapleCore";
+			};
+			name = Debug;
+		};
+		D14435ED23F4B61306CEECB2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maplecore.operations.tests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/MapleCore.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/MapleCore";
+			};
+			name = Release;
+		};
+		F6A0D02D7DA7C438837DB9EE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maplecore.operations.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = MapleCore;
+			};
+			name = Debug;
+		};
+		9BA02ED749A6290129F827AB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.maplecore.operations.uitests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TARGETED_DEVICE_FAMILY = 1;
+				TEST_TARGET_NAME = MapleCore;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5BF065D48D8C23D03623AA6A /* Build configuration list for PBXProject "MapleCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA9139DD8B03E3F922556BF8,
+				FFE2104CCFAB79205AC64460,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BBFE79A791796F23E65A3A86 /* Build configuration list for PBXNativeTarget "MapleCore" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				72FB3ED29B4639D83EC5DB14,
+				191734982F22ABEBB64A1AE0,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A95504A2B6F3EC478F113463 /* Build configuration list for PBXNativeTarget "MapleCoreWidgetsExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				349A7CDD7B5757405FB475F0,
+				35FD30AF9D1354CC59CEA9A2,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		09D19F07600FD9AC31F731CD /* Build configuration list for PBXNativeTarget "MapleCoreTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B1DDA1C206B61B04D2309EE7,
+				D14435ED23F4B61306CEECB2,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1B0200DDEFADC248B3A23F0A /* Build configuration list for PBXNativeTarget "MapleCoreUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F6A0D02D7DA7C438837DB9EE,
+				9BA02ED749A6290129F827AB,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		DCE6DCD9CBEDFFC71950EF11 /* XCLocalSwiftPackageReference "Packages/MapleCoreKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/MapleCoreKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B70D16E744EAA68A9A44C7FF /* MapleCoreKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DCE6DCD9CBEDFFC71950EF11;
+			productName = MapleCoreKit;
+		};
+		114CCEE5713AE46BD805C3E6 /* MapleCoreKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DCE6DCD9CBEDFFC71950EF11;
+			productName = MapleCoreKit;
+		};
+		9140BA3DEDDA7A1FED6FF829 /* MapleCoreKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DCE6DCD9CBEDFFC71950EF11;
+			productName = MapleCoreKit;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}
