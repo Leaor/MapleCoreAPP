@@ -237,3 +237,29 @@ func XCTAssertThrowsAsync<T>(_ expression: @autoclosure () async throws -> T, _ 
         XCTAssertEqual(error as? AuthError, expected, file: file, line: line)
     }
 }
+
+@MainActor
+final class StoreRegressionTests: XCTestCase {
+    func testArriveDoesNotReplaceRunningVisit() async {
+        let store = AppStore(persistence: nil, syncMode: .disabled)
+        store.signIn(Fixtures.accounts[1])
+        XCTAssertNotNil(store.arrive(routeID: Fixtures.ID.routeNorth, stopID: "north-6"))
+        XCTAssertNil(store.arrive(routeID: Fixtures.ID.routeNorth, stopID: "north-7"))
+        XCTAssertEqual(store.activeVisit?.stopID, "north-6")
+    }
+
+    func testEndedShiftIsNotCurrent() async {
+        let store = AppStore(persistence: nil, syncMode: .disabled)
+        store.signIn(Fixtures.accounts[1])
+        store.startShift(truck: "Truck 1")
+        XCTAssertNotNil(store.currentShift)
+        store.endShift()
+        XCTAssertNil(store.currentShift)
+    }
+
+    func testFieldUserFindsExistingManagerThread() async {
+        let store = AppStore(persistence: nil, syncMode: .disabled)
+        store.signIn(Fixtures.accounts[1])
+        XCTAssertEqual(store.directThread(with: Fixtures.ID.michael), Fixtures.ID.threadMichaelDaniel)
+    }
+}

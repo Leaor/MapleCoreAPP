@@ -527,6 +527,8 @@ public final class AppStore {
     @discardableResult
     public func arrive(routeID: Route.ID, stopID: RouteStop.ID) -> VisitSession? {
         if let activeVisit, activeVisit.stopID == stopID { return activeVisit }
+        // Never replace a visit that is running at another stop.
+        if let activeVisit, activeVisit.isActive { return nil }
         guard let route = route(routeID), let index = route.index(of: stopID), let property = property(route.stops[index].propertyID) else { return nil }
         let stop = route.stops[index]
         var session = VisitSession(routeID: routeID, stopID: stopID, propertyID: property.id, propertyName: property.name, stopNumber: index + 1, stopCount: route.stops.count, serviceName: stop.serviceName, estimateMinutes: stop.estimatedMinutes, tasks: stop.tasks)
@@ -649,9 +651,14 @@ public final class AppStore {
     @discardableResult
     public func directThread(with staffID: StaffMember.ID) -> MessageThread.ID? {
         guard let person = member(staffID) else { return nil }
-        if let existing = threads.first(where: { $0.kind == .direct && $0.title == person.name }) { return existing.id }
+        let viewerIsField = activeRole == .field || isPreviewingRole
+        // Match on the person (name, first name or a message they wrote) and the side of the app that can see it.
+        if let existing = threads.first(where: { t in
+            t.kind == .direct && (viewerIsField ? t.visibleToField : t.visibleToAdmin) &&
+            (t.title == person.name || t.title == person.firstName || t.messages.contains { $0.authorID == staffID })
+        }) { return existing.id }
         guard !isReadOnly else { return nil }
-        let thread = MessageThread(id: UUID().uuidString, kind: .direct, title: person.name, initials: person.initials, subtitle: person.jobTitle, crewID: person.crewID, messages: [])
+        let thread = MessageThread(id: UUID().uuidString, kind: .direct, title: person.name, initials: person.initials, subtitle: person.jobTitle, crewID: person.crewID, messages: [], visibleToField: viewerIsField, visibleToAdmin: !viewerIsField)
         threads.append(thread)
         persist()
         return thread.id
@@ -791,7 +798,7 @@ public final class AppStore {
 
     /// The field user's shift: their own, or a derived one for preview/fixtures.
     public var currentShift: Shift? {
-        if let shift, !isPreviewingRole { return shift }
+        if let shift, !isPreviewingRole { return shift.isActive ? shift : nil }
         guard let member = member(fieldStaffID), let since = member.onDutySince else { return nil }
         return Shift(startedAt: since, breakMinutes: 15, breaks: 1, truck: crew(member.crewID)?.truck ?? "")
     }
