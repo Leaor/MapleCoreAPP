@@ -31,7 +31,7 @@ final class AddressSearchModel: NSObject, MKLocalSearchCompleterDelegate {
     private(set) var isSearching = false
     private(set) var lastError: String?
 
-    @ObservationIgnored private let completer = MKLocalSearchCompleter()
+    private let completer = MKLocalSearchCompleter()
     @ObservationIgnored private var completions: [MKLocalSearchCompletion] = []
 
     override init() {
@@ -47,11 +47,14 @@ final class AddressSearchModel: NSObject, MKLocalSearchCompleterDelegate {
         lastError = nil
         guard q.count >= 3 else {
             completer.cancel()
+            // Reset the fragment so typing the same text again triggers a fresh query.
+            completer.queryFragment = ""
             completions = []
             suggestions = []
             isSearching = false
             return
         }
+        guard q != completer.queryFragment else { return }
         isSearching = true
         completer.queryFragment = q
     }
@@ -59,6 +62,7 @@ final class AddressSearchModel: NSObject, MKLocalSearchCompleterDelegate {
     @MainActor
     func clear() {
         completer.cancel()
+        completer.queryFragment = ""
         completions = []
         suggestions = []
         isSearching = false
